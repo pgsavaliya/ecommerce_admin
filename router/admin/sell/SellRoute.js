@@ -26,7 +26,7 @@ sellRoute.post(
 sellRoute.get("/totalSell", check_admin_token_url, totalSellController);
 sellRoute.get("/totalaccSell", check_admin_token_url, totalSellController);
 sellRoute.get("/viewSell", check_admin_token_url, viewSellController);
-sellRoute.get("/dowlandSellPdf", SellDowlandPdfController);
+sellRoute.get("/dowlandSellPdf", check_admin_token_url ,SellDowlandPdfController);
 sellRoute.post("/addOneSell", check_admin_token, addSellController);
 
 export default sellRoute;

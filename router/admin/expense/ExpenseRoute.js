@@ -2,11 +2,13 @@ import express from "express";
 import { addCategoryExpenseController } from "../../../controller/admin/expense/addCategoryExpense-controller.js";
 import { addExpenseController } from "../../../controller/admin/expense/addExpense-controller.js";
 import { deleteExpenseController } from "../../../controller/admin/expense/deleteExpense-controller.js";
+import { ExpenseDowlandPdfController } from "../../../controller/admin/expense/ExpenseDowlandPdf-controller.js";
 import { totalExpenseController } from "../../../controller/admin/expense/totalExpense-controller.js";
 import { updateCategoryExpenseController } from "../../../controller/admin/expense/updateCategoryExpense-controller.js";
 import { updateExpenseController } from "../../../controller/admin/expense/updateExpense-controller.js";
 import { viewCategoryExpenseController } from "../../../controller/admin/expense/viewCategoryExpense-controller.js";
 import { viewExpenseController } from "../../../controller/admin/expense/viewExpense-controller.js";
+
 import {
   check_admin_token,
   check_admin_token_url,
@@ -30,6 +32,8 @@ expenseRoute.get(
   viewCategoryExpenseController
 );
 expenseRoute.get("/viewExpense", check_admin_token_url, viewExpenseController);
+expenseRoute.get("/dowlandExpensePdf", check_admin_token_url ,ExpenseDowlandPdfController);
+
 expenseRoute.post("/updateExpense", check_admin_token, updateExpenseController);
 expenseRoute.post(
   "/updateCategoreExpense",
