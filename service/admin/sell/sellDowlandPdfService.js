@@ -42,7 +42,6 @@ export async function sellDowlandPdfService(input, res) {
       await pdfDoc.pipe(fs.createWriteStream("./pdf/ItCodeHelpSell.pdf"));
       const table = {
         title: "E-Comm  ItCodeHelp",
-        subtitle: "Subtitle",
         headers: [
           { label: "Order_Net", property: "Order_Net" },
           { label: "Full_Name", property: "Full_Name" },
