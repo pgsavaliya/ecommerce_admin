@@ -20,7 +20,7 @@ sellRoute.get("/", (req, res) => {
 sellRoute.post(
   "/uploadsellfile",
   check_admin_token,
-  upload.single("img"),
+  upload.single("filename"),
   sellfileController
 );
 sellRoute.get("/totalSell", check_admin_token_url, totalSellController);

@@ -8,8 +8,8 @@ export async function sellfileController(req, res) {
     if (!errors.isEmpty()) {
       return res.status(422).json({ errors: errors.array() });
     } else {
-      req.body.updatedadminId = req.body.adminId;
-      // console.log(req.filename);
+      req.body.updatedadminId = req.adminId;
+      // console.log(req);
       const response = await sellfileService(req);
       res.send(response);
     }

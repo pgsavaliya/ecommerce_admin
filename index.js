@@ -1,15 +1,17 @@
 //database connection
-import { fileURLToPath } from "url";
+import {URL} from "url";
 import path from "path";
 import express from "express";
 import v1 from "./router/v1.js";
 import mongoose from "mongoose";
 import cors from "cors";
 const app = express();
-const __filename = fileURLToPath(import.meta.url);
-global.__dirname = path.dirname(__filename);
+
+
+global.dirname = new URL('.', import.meta.url).pathname;
+// global.__dirname = path(fileURLToPath(import.meta.url));
 // global.appRoot = path.resolve(__dirname);
-// console.log(appRoot);
+// console.log(__dirname);
 mongoose
   .connect(
     "mongodb+srv://pavan:pavan@cluster0.saxdu.mongodb.net/e-comm?retryWrites=true&w=majority"

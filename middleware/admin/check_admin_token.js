@@ -20,7 +20,6 @@ export function check_admin_token(req, res, next) {
         req.password = payload.password;
         req.logId = payload.logId;
         req.body.logId = payload.logId;
-
         next();
       }
     });

@@ -6,14 +6,16 @@ import { SellDowlandPdfModel } from "../../../scema/admin/sell/sellDowlandPdf-sc
 
 export async function sellDowlandPdfService(input, res) {
   return new Promise(async (resole, reject) => {
-    // resole("fhdxddvcx");
 
-    // return "/pdf/Pavan.pdf";
     let reasult = [];
-    let lte = new Date(input.lte);
+    let lte = new Date(input.enddate);
 
-    let gte = new Date(input.gte);
-
+    let gte = new Date(input.startdate);
+    // console.log(gte)
+    gte = new Date(gte);
+    lte = new Date(lte);
+    lte.setDate(lte.getDate() + 1);
+    console.log(lte)
     reasult = await SellDowlandPdfModel.aggregate([
       {
         $match: {
@@ -37,7 +39,7 @@ export async function sellDowlandPdfService(input, res) {
       });
 
       let pdfDoc = new Pdfdoc();
-      pdfDoc.pipe(fs.createWriteStream("./pdf/Pavan.pdf"));
+      await pdfDoc.pipe(fs.createWriteStream("./pdf/ItCodeHelpSell.pdf"));
       const table = {
         title: "E-Comm  ItCodeHelp",
         subtitle: "Subtitle",
@@ -52,17 +54,17 @@ export async function sellDowlandPdfService(input, res) {
       await pdfDoc.table(table, {
         border: 1,
       });
-      pdfDoc.end();
+      pdfDoc.end()
+      
+    //   console.log(pdfDoc.end)
+      const waitetosolve = () => {
+      resole(pdfDoc) 
 
-      console.log(pdfDoc);
-      resole("dvhsk");
-      // let abc = __dirname + "/pdf/Pavan.pdf";
-      console.log("abc");
-      // console.log();
-      // let ppath1 = path.resolve("/pdf/Pavan.pdf");
-      // console.log(ppath1);
-      // res.send("fhd");
-    } else {
+    }
+    setTimeout(waitetosolve, 2000);
+    } 
+    else{
+      resole("data not found")
     }
   });
 }

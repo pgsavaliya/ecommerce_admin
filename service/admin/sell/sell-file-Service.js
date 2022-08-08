@@ -8,6 +8,7 @@ import { sellfileModel } from "../../../scema/admin/sell/sell-file-scema.js";
 export async function sellfileService(input) {
   return new Promise(async (resole, reject) => {
     try {
+      // console.log(input.file)
       let jsondata = await filetransfer("./files/" + input.file.filename);
 
       jsondata.forEach((obj) => {

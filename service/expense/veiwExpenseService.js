@@ -56,6 +56,7 @@ export async function viewExpenseService(input) {
         reject("Expense Not Found");
       }
     } catch (e) {
+      console.log(e)
       reject("Something is worng" + e);
     }
   });

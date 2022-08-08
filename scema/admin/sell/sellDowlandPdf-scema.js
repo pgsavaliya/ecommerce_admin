@@ -7,7 +7,7 @@ const SellDowlandPdf = new mongoose.Schema(
   },
   {
     collection: "Sell",
-    timestamps: true,
+    // timestamps: true,
   }
 );
 export const SellDowlandPdfModel = mongoose.model(
