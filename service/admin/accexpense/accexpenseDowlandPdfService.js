@@ -3,6 +3,7 @@ import path from "path";
 import fs from "fs";
 import os from "os";
 import { accExpenseDowlandPdfModel } from "../../../scema/admin/accexpense/accexpenseDowlandPdf-scema.js";
+import mongoose from "mongoose";
 
 export async function accexpenseDowlandPdfService(input, res) {
   return new Promise(async (resole, reject) => {
@@ -15,6 +16,7 @@ export async function accexpenseDowlandPdfService(input, res) {
     lte = new Date(lte);
     lte.setDate(lte.getDate() + 1);
     console.log(lte);
+    console.log(input.accId);
     reasult = await accExpenseDowlandPdfModel.aggregate([
       {
         $match: {
@@ -22,11 +24,11 @@ export async function accexpenseDowlandPdfService(input, res) {
             $gte: gte,
             $lte: lte,
           },
-          accId: input.accId,
+          accId: mongoose.Types.ObjectId(input.accId),
         },
       },
     ]);
-    // console.log("Reasult is", reasult);
+    console.log("Reasult is", reasult);
     if (reasult != "") {
       reasult = reasult.map((item) => {
         return {
@@ -39,7 +41,12 @@ export async function accexpenseDowlandPdfService(input, res) {
       });
 
       let pdfDoc = new Pdfdoc();
-      await pdfDoc.pipe(fs.createWriteStream("./pdf/ItCodeHelpaccexpense.pdf"));
+      console.log(path.join(dirname, "./pdf/ItCodeHelpaccexpense.pdf"));
+      await pdfDoc.pipe(
+        fs.createWriteStream(
+          path.join(dirname, "./pdf/ItCodeHelpaccexpense.pdf")
+        )
+      );
       const table = {
         title: "E-Comm  ItCodeHelp accExpense",
         headers: [
@@ -55,7 +62,7 @@ export async function accexpenseDowlandPdfService(input, res) {
 
       //   console.log(pdfDoc.end)
       const waitetosolve = () => {
-        resole(pdfDoc);
+        resole("1");
       };
       setTimeout(waitetosolve, 2000);
     } else {

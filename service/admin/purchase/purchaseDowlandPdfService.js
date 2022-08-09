@@ -2,6 +2,7 @@ import Pdfdoc from "pdfkit-table";
 import path from "path";
 import fs from "fs";
 import os from "os";
+import mongoose from "mongoose";
 import { purchaseDowlandPdfModel } from "../../../scema/admin/purchase/purchaseDowlandPdf-scema.js";
 
 export async function purchaseDowlandPdfService(input, res) {
@@ -22,7 +23,7 @@ export async function purchaseDowlandPdfService(input, res) {
             $gte: gte,
             $lte: lte,
           },
-          accId: input.accId,
+          accId: mongoose.Types.ObjectId(input.accId),
         },
       },
     ]);
@@ -39,9 +40,11 @@ export async function purchaseDowlandPdfService(input, res) {
       });
 
       let pdfDoc = new Pdfdoc();
-      await pdfDoc.pipe(fs.createWriteStream("./pdf/ItCodeHelppurchase.pdf"));
+      await pdfDoc.pipe(
+        fs.createWriteStream(__dirname, "/pdf/ItCodeHelppurchase.pdf")
+      );
       const table = {
-        title: "E-Comm  ItCodeHelp",
+        title: "E-Comm ItCodeHelp",
         headers: [
           { label: "Name", property: "name" },
           { label: "Amount", property: "amount" },
@@ -53,9 +56,9 @@ export async function purchaseDowlandPdfService(input, res) {
       });
       pdfDoc.end();
 
-      //   console.log(pdfDoc.end)
+      console.log("dfhsd");
       const waitetosolve = () => {
-        resole(pdfDoc);
+        resole("1");
       };
       setTimeout(waitetosolve, 2000);
     } else {

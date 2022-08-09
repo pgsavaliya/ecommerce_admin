@@ -4,10 +4,8 @@ import fs from "fs";
 import os from "os";
 import { ExpenseDowlandPdfModel } from "../../scema/admin/expense/expenseDowlandPdf-scema.js";
 
-
 export async function expenseDowlandPdfService(input, res) {
   return new Promise(async (resole, reject) => {
-
     let reasult = [];
     let lte = new Date(input.enddate);
 
@@ -16,7 +14,7 @@ export async function expenseDowlandPdfService(input, res) {
     gte = new Date(gte);
     lte = new Date(lte);
     lte.setDate(lte.getDate() + 1);
-    console.log(lte)
+    console.log(lte);
     reasult = await ExpenseDowlandPdfModel.aggregate([
       {
         $match: {
@@ -40,29 +38,29 @@ export async function expenseDowlandPdfService(input, res) {
       });
 
       let pdfDoc = new Pdfdoc();
-      await pdfDoc.pipe(fs.createWriteStream("./pdf/ItCodeHelpexpense.pdf"));
+      await pdfDoc.pipe(
+        fs.createWriteStream(path.join(dirname, "/pdf/ItCodeHelpexpense.pdf"))
+      );
       const table = {
         title: "E-Comm  ItCodeHelp Expense",
         headers: [
           { label: "Amount", property: "amount" },
-          { label: "Description", property: "description" }
+          { label: "Description", property: "description" },
         ],
         datas: reasult,
       };
       await pdfDoc.table(table, {
         border: 1,
       });
-      pdfDoc.end()
-      
-    //   console.log(pdfDoc.end)
-      const waitetosolve = () => {
-      resole(pdfDoc) 
+      pdfDoc.end();
 
-    }
-    setTimeout(waitetosolve, 2000);
-    } 
-    else{
-      resole("data not found")
+      //   console.log(pdfDoc.end)
+      const waitetosolve = () => {
+        resole("1");
+      };
+      setTimeout(waitetosolve, 2000);
+    } else {
+      resole("data not found");
     }
   });
 }

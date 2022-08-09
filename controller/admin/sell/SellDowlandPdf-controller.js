@@ -11,8 +11,10 @@ export async function SellDowlandPdfController(req, res) {
     req.enddate = url1.query.enddate;
     req.accId = url1.query.accId;
     const response = await sellDowlandPdfService(req);
-    if (response) {
+    if (response == 1) {
       res.download(path.join(dirname, "/pdf/ItCodeHelpSell.pdf"));
+    } else {
+      res.send(response);
     }
   } catch (error) {
     res.status(404).send(error || "something worng");

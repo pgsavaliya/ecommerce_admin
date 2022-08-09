@@ -11,8 +11,11 @@ export async function purchaseDowlandPdfController(req, res) {
     req.enddate = url1.query.enddate;
     req.accId = url1.query.accId;
     const response = await purchaseDowlandPdfService(req);
-    if (response) {
+    if (response == 1) {
+      // res.send("ghdkf")
       res.download(path.join(dirname, "/pdf/ItCodeHelppurchase.pdf"));
+    } else {
+      res.send(response);
     }
   } catch (error) {
     res.status(404).send(error || "something worng");

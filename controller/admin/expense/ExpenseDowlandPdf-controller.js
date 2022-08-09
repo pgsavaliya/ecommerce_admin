@@ -6,15 +6,15 @@ import { expenseDowlandPdfService } from "../../../service/expense/expenseDowlan
 
 export async function ExpenseDowlandPdfController(req, res) {
   try {
-    
     const url1 = url.parse(req.url, true);
     req.startdate = url1.query.startdate;
     req.enddate = url1.query.enddate;
-      const response = await expenseDowlandPdfService(req);
-      if(response)
-      {
-      res.download(path.join(dirname,"/pdf/ItCodeHelpexpense.pdf"));
-      }
+    const response = await expenseDowlandPdfService(req);
+    if (response == 1) {
+      res.download(path.join(dirname, "/pdf/ItCodeHelpexpense.pdf"));
+    } else {
+      res.send(response);
+    }
   } catch (error) {
     res.status(404).send(error || "something worng");
   }
