@@ -20,13 +20,17 @@ sellRoute.get("/", (req, res) => {
 sellRoute.post(
   "/uploadsellfile",
   check_admin_token,
-  upload.single("filename"),
+  upload.single("file1"),
   sellfileController
 );
 sellRoute.get("/totalSell", check_admin_token_url, totalSellController);
 sellRoute.get("/totalaccSell", check_admin_token_url, totalSellController);
 sellRoute.get("/viewSell", check_admin_token_url, viewSellController);
-sellRoute.get("/dowlandSellPdf", check_admin_token_url ,SellDowlandPdfController);
+sellRoute.get(
+  "/dowlandSellPdf",
+  check_admin_token_url,
+  SellDowlandPdfController
+);
 sellRoute.post("/addOneSell", check_admin_token, addSellController);
 
 export default sellRoute;
