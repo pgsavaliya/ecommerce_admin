@@ -53,10 +53,10 @@ export async function viewExpenseService(input) {
       if (reasult != "") {
         resole(reasult);
       } else {
-        reject("Expense Not Found");
+        resole("Expense Not Found");
       }
     } catch (e) {
-      console.log(e)
+      console.log(e);
       reject("Something is worng" + e);
     }
   });

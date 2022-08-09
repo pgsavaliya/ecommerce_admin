@@ -24,13 +24,14 @@ export async function totalExpenseService(input) {
           },
         ]);
       }
-      console.log(input.accId);
 
       if (reasult != "") {
         reasult = reasult[0];
         resole(reasult);
       } else {
-        reject("amount Not Found");
+        reasult = {};
+        reasult.amount = 0;
+        resole(reasult);
       }
     } catch (e) {
       reject("Something is worng" + e);
