@@ -6,7 +6,6 @@ import { SellDowlandPdfModel } from "../../../scema/admin/sell/sellDowlandPdf-sc
 
 export async function sellDowlandPdfService(input, res) {
   return new Promise(async (resole, reject) => {
-
     let reasult = [];
     let lte = new Date(input.enddate);
 
@@ -15,7 +14,7 @@ export async function sellDowlandPdfService(input, res) {
     gte = new Date(gte);
     lte = new Date(lte);
     lte.setDate(lte.getDate() + 1);
-    console.log(lte)
+    console.log(lte);
     reasult = await SellDowlandPdfModel.aggregate([
       {
         $match: {
@@ -23,6 +22,7 @@ export async function sellDowlandPdfService(input, res) {
             $gte: gte,
             $lte: lte,
           },
+          accId: input.accId,
         },
       },
     ]);
@@ -53,17 +53,15 @@ export async function sellDowlandPdfService(input, res) {
       await pdfDoc.table(table, {
         border: 1,
       });
-      pdfDoc.end()
-      
-    //   console.log(pdfDoc.end)
-      const waitetosolve = () => {
-      resole(pdfDoc) 
+      pdfDoc.end();
 
-    }
-    setTimeout(waitetosolve, 2000);
-    } 
-    else{
-      resole("data not found")
+      //   console.log(pdfDoc.end)
+      const waitetosolve = () => {
+        resole(pdfDoc);
+      };
+      setTimeout(waitetosolve, 2000);
+    } else {
+      resole("data not found");
     }
   });
 }

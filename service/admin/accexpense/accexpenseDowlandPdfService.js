@@ -4,10 +4,8 @@ import fs from "fs";
 import os from "os";
 import { accExpenseDowlandPdfModel } from "../../../scema/admin/accexpense/accexpenseDowlandPdf-scema.js";
 
-
 export async function accexpenseDowlandPdfService(input, res) {
   return new Promise(async (resole, reject) => {
-
     let reasult = [];
     let lte = new Date(input.enddate);
 
@@ -16,7 +14,7 @@ export async function accexpenseDowlandPdfService(input, res) {
     gte = new Date(gte);
     lte = new Date(lte);
     lte.setDate(lte.getDate() + 1);
-    console.log(lte)
+    console.log(lte);
     reasult = await accExpenseDowlandPdfModel.aggregate([
       {
         $match: {
@@ -24,6 +22,7 @@ export async function accexpenseDowlandPdfService(input, res) {
             $gte: gte,
             $lte: lte,
           },
+          accId: input.accId,
         },
       },
     ]);
@@ -45,24 +44,22 @@ export async function accexpenseDowlandPdfService(input, res) {
         title: "E-Comm  ItCodeHelp accExpense",
         headers: [
           { label: "Amount", property: "amount" },
-          { label: "Description", property: "description" }
+          { label: "Description", property: "description" },
         ],
         datas: reasult,
       };
       await pdfDoc.table(table, {
         border: 1,
       });
-      pdfDoc.end()
-      
-    //   console.log(pdfDoc.end)
-      const waitetosolve = () => {
-      resole(pdfDoc) 
+      pdfDoc.end();
 
-    }
-    setTimeout(waitetosolve, 2000);
-    } 
-    else{
-      resole("data not found")
+      //   console.log(pdfDoc.end)
+      const waitetosolve = () => {
+        resole(pdfDoc);
+      };
+      setTimeout(waitetosolve, 2000);
+    } else {
+      resole("data not found");
     }
   });
 }
