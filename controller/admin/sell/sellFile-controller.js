@@ -3,16 +3,17 @@ import { sellfileService } from "../../../service/admin/sell/sell-file-Service.j
 
 export async function sellfileController(req, res) {
   try {
+    console.log(req.body.accId);
+
+    // const errors = validationResult(req);
+    // const url1 = url.parse(req.url, true);
+    req.body.accId = req.query.accId;
+
+    // req.body.updatedadminId = req.adminId;
     // console.log(req.body.accId);
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(422).json({ errors: errors.array() });
-    } else {
-      req.body.updatedadminId = req.adminId;
-      // console.log(req);
-      const response = await sellfileService(req);
-      res.send(response);
-    }
+
+    const response = await sellfileService(req);
+    res.send(response);
   } catch (error) {
     res.status(404).send(error || "something worng");
   }

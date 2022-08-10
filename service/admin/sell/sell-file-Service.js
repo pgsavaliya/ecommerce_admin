@@ -8,7 +8,7 @@ import { sellfileModel } from "../../../scema/admin/sell/sell-file-scema.js";
 export async function sellfileService(input) {
   return new Promise(async (resole, reject) => {
     try {
-      // console.log(input.file)
+      // console.log(input.body.accId);
       let jsondata = await filetransfer("./files/" + input.file.filename);
 
       jsondata.forEach((obj) => {
@@ -24,6 +24,8 @@ export async function sellfileService(input) {
       });
       let data2 = [];
       // console.log(input.accId);
+      // console.log(jsondata);
+
       if (input.body.accId) {
         for (let i = 0; i < jsondata.length; i++) {
           jsondata[i].accId = input.body.accId;
@@ -46,6 +48,7 @@ export async function sellfileService(input) {
             Time: Date(),
             data: data2,
           };
+
           var log = await backupLogModel.findByIdAndUpdate(
             { _id: input.logId },
             { $push: { log: backupLog } },
