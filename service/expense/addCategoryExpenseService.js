@@ -1,5 +1,3 @@
-
-
 import { backupLogModel } from "../../scema/admin/backuplog/backuplog-scema.js";
 import { addCategoryExpenseModel } from "../../scema/admin/expense/addCategoryExpense-scema.js";
 
@@ -17,11 +15,11 @@ export async function addCategoryExpenseService(input) {
         };
         var log = await backupLogModel.findByIdAndUpdate(
           { _id: input.logId },
-          { $push: { log:backupLog } },
+          { $push: { log: backupLog } },
           { new: true }
         );
         if (log) {
-          resole("Category Added");
+          resole(data1);
         } else {
           reject("Category not add please try again");
         }
@@ -29,7 +27,7 @@ export async function addCategoryExpenseService(input) {
         reject("Category not add please try again");
       }
     } catch (e) {
-        reject("Something is worng" + e);
+      reject("Something is worng" + e);
     }
   });
 }
