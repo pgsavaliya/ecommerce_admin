@@ -15,6 +15,14 @@ export async function viewExpenseService(input) {
             },
           },
           {
+            $lookup: {
+              from: "categoryofExpense",
+              localField: "categoryId",
+              foreignField: "_id",
+              as: "category_data",
+            },
+          },
+          {
             $project: {
               adminId: 0,
               updatedadminId: 0,
@@ -26,7 +34,7 @@ export async function viewExpenseService(input) {
         let date1 = new Date();
         date1.setMonth(date1.getMonth() - input.timming);
 
-        // console.log(input.search);
+        // console.log(reasult);
         var reasult = await viewExpenseModel.aggregate([
           {
             $match: {
@@ -39,6 +47,15 @@ export async function viewExpenseService(input) {
               },
             },
           },
+          {
+            $lookup: {
+              from: "categoryofExpense",
+              localField: "categoryId",
+              foreignField: "_id",
+              as: "category_data",
+            },
+          },
+          { $unwind: "$category_data" },
           {
             $project: {
               adminId: 0,
