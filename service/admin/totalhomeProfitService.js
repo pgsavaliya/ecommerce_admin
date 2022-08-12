@@ -20,7 +20,7 @@ export async function totalhomeProfitService(input) {
       const Expense = await totalExpenseService(input);
       const Sell = await totalSellService(input);
       const accExpense = await totalaccExpenseService(input);
-      console.log(Expense);
+      console.log("accExpense", accExpense, "Expense", Expense);
       const Profit =
         Sell.Order_Net - Purchase.amount - Expense.amount - accExpense.amount;
 

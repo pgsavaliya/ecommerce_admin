@@ -24,11 +24,11 @@ export async function totalProfitService(input) {
       // const Sell1 = ;
       // const Expense1  =
       // console.log(Profit);
-      console.log("mihir ss", Sell instanceof Array);
+      // console.log("mihir ss", Sell instanceof Array);
       if (Sell == "") {
         Sell = 0;
       }
-      console.log("sell", Sell);
+      // console.log("sell", Sell);
       if (accExpense == "") {
         accExpense = 0;
       }
