@@ -1,6 +1,5 @@
-import { backupLogModel } from "../../../scema/admin/backuplog/backuplog-scema.js"
+import { backupLogModel } from "../../../scema/admin/backuplog/backuplog-scema.js";
 import { addEcommModel } from "../../../scema/admin/Ecomm/addEcomm-scema.js";
-
 
 function date() {
   let d = new Date();
@@ -12,10 +11,10 @@ function date() {
 }
 
 export async function addEcommAccService(input) {
-  return new Promise(async (resole, reject) => {
+  return new Promise(async (resolve, reject) => {
     try {
       input.createDate = date();
-      // resole(input)
+      // resolve(input)
       let data = new addEcommModel(input);
       let data1 = await data.save();
       if (data1 !== "") {
@@ -25,13 +24,14 @@ export async function addEcommAccService(input) {
           Time: Date(),
           data: data1,
         };
+
         var log = await backupLogModel.findByIdAndUpdate(
           { _id: input.logId },
-          { $push: { log:backupLog } },
+          { $push: { log: backupLog } },
           { new: true }
         );
         if (log) {
-          resole("Account Registered");
+          resolve("Account Registered");
         } else {
           reject("Account is not Registred, try again");
         }
@@ -40,9 +40,8 @@ export async function addEcommAccService(input) {
       }
     } catch (e) {
       // console.log(e.code);
-      
-        reject("Something is worng" + e);
-      
+
+      reject("Something is worng" + e);
     }
   });
 }

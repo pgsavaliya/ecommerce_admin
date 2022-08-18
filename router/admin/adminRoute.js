@@ -14,6 +14,7 @@ import accexpenseRoute from "./accExpense/AccExpenseRoute.js";
 import expenseRoute from "./expense/ExpenseRoute.js";
 import sellRoute from "./sell/SellRoute.js";
 import { viewbackuplogController } from "../../controller/admin/viewbackuplog-controller.js";
+import { ipController } from "../../controller/admin/ip.js";
 const adminRoute = express();
 adminRoute.use(express.json());
 
@@ -27,6 +28,7 @@ adminRoute.post("/login", adminloginController);
 adminRoute.use("/expense", expenseRoute);
 adminRoute.use("/accExpense", accexpenseRoute);
 adminRoute.use("/sell", sellRoute);
+adminRoute.get("/ips", ipController);
 adminRoute.use("/purchase", purchaseRoute);
 adminRoute.get("/accprofit", check_admin_token_url, totalProfitController);
 adminRoute.get(
